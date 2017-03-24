@@ -9,7 +9,7 @@ if [ "$1" == 'clean' ]; then
 	[ -f "$here/hostnames" ] || exit
 	hostnames="$(cat $here/hostnames)"
 	echo "This copy has been configured for $hostnames."
-	read -p "Do you want to delete everything? (it cannot be undone, sudo requested) " -n 1 -r && echo
+	read -p "Do you want to delete everything? (it cannot be undone, sudo required) " -n 1 -r && echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		sudo rm -rf "$here/hostnames" "$here/output"
 	fi
