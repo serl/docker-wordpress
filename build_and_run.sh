@@ -9,7 +9,7 @@ if [ "$1" == 'clean' ]; then
 	[ -f "$here/hostnames" ] || exit
 	hostnames="$(cat $here/hostnames)"
 	echo "This copy has been configured for $hostnames."
-	read -p "Do you want to delete everything? (it cannot be undone, sudo required) " -n 1 -r && echo
+	read -p "Do you want to delete everything? (it cannot be undone, sudo required) [yN] " -n 1 -r && echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		sudo rm -rf "$here/hostnames" "$here/output"
 	fi
@@ -37,7 +37,7 @@ else
 	done
 fi
 
-read -p "Do you want to override $hostname with a local copy of WordPress? " -n 1 -r && echo
+read -p "Do you want to override $hostname with a local copy of WordPress? [yN] " -n 1 -r && echo
 if ! [[ $REPLY =~ ^[Yy]$ ]]; then
 	exit
 fi
