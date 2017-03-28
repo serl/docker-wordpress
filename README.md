@@ -19,7 +19,8 @@ When you run `./build_and_run.sh <domain_name> [alternative_domain_name] ...`:
 * The domain names are put in your hosts file, mapped to `127.0.0.1`.
 * A container consisting of Apache, PHP and MySQL is built and started.
 * WordPress is downloaded. You could then head your browser to `domain_name` and configure your website.
-* When you're done, wait for `Database dumped!` (30s at max) on the terminal then hit CTRL+C. You'll have all you need to upload to your hosting in the `output` dir (just remember to edit the `wp-config.php` to match production database).
+* The terminal that you get points to the WordPress root. [WP-CLI](http://wp-cli.org/) is installed for your convenience.
+* When you're done, hit CTRL+D. The container will be stopped, and you'll have all you need to upload to your hosting in the `output` dir (just remember to edit the `wp-config.php` to match production database). Note that `output/dump.sql` is updated in this moment.
 
 If you need to continue your work, just run `./build_and_run.sh`, and everything will be restored.
 
@@ -32,8 +33,3 @@ If you want to run locally a pre-existing website, put the WordPress copy in `ou
 
 * Ehm... Docker.
 * Nothing else listening on port 80.
-
-
-## Caveats
-
-* If you resize the terminal window, Apache will commit suicide and the container will be stopped.

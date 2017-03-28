@@ -10,6 +10,8 @@ RUN \
     echo 'mysql-server mysql-server/root_password password easy' | debconf-set-selections && \
     echo 'mysql-server mysql-server/root_password_again password easy' | debconf-set-selections && \
     apt-get update && apt-get install \
+        # Utilities for WP-CLI
+        sudo less bash-completion \
         # PHP extensions deps
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -30,11 +32,17 @@ RUN \
         echo 'opcache.revalidate_freq=2'; \
         echo 'opcache.fast_shutdown=1'; \
         echo 'opcache.enable_cli=1'; \
-    } > /usr/local/etc/php/conf.d/opcache-recommended.ini
+    } > /usr/local/etc/php/conf.d/opcache-recommended.ini && \
+    # WP-CLI
+    curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x /usr/local/bin/wp && \
+    curl -o /etc/bash_completion.d/wp https://raw.githubusercontent.com/wp-cli/wp-cli/master/utils/wp-completion.bash
 
 VOLUME /output
 VOLUME /var/www/html
 
+ADD container_files/bashrc /root/bashrc
+RUN cat /root/bashrc >> /root/.bashrc && rm /root/bashrc
 ADD container_files/wordpress-entrypoint.sh /usr/local/bin/wordpress-entrypoint.sh
 
 ENTRYPOINT ["wordpress-entrypoint.sh"]

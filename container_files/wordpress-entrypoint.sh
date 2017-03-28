@@ -72,7 +72,12 @@ fi
 /etc/init.d/mysql start
 mysql --user=root --password=easy -e "CREATE DATABASE wordpress;"
 [ -e /output/dump.sql ] && (mysql --user=root --password=easy wordpress < /output/dump.sql)
-(while true; do sleep 30; mysqldump --user=root --password=easy wordpress > /output/dump.sql; echo "Database dumped!"; done) &
 
-docker-php-entrypoint "$@"
+docker-php-entrypoint "$@" > /var/log/apache-php.log &
+sleep 5
+
+bash
+
+mysqldump --user=root --password=easy wordpress > /output/dump.sql &&
+echo "Database dumped!"
 shutdown
