@@ -55,6 +55,7 @@ sudo docker run --sig-proxy=false \
 	-e OVERRIDE_HOST="$hostname" \
 	-v "$here"/output/www/:/var/www/html \
 	-v "$here"/output/:/output \
+	-v "$here"/tmp:/temporary \
 	--name wordpress-image-running \
 	-it --rm wordpress-image $cmd
 
