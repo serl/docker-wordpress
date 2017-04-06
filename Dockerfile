@@ -11,7 +11,7 @@ RUN \
     echo 'mysql-server mysql-server/root_password_again password easy' | debconf-set-selections && \
     apt-get update && apt-get install \
         # Utilities for WP-CLI
-        sudo less bash-completion \
+        sudo less bash-completion nano \
         # PHP extensions deps
         libfreetype6-dev \
         libjpeg62-turbo-dev \
