@@ -1,3 +1,5 @@
+umask 000
+
 alias wp="sudo -u www-data -- wp"
 
 # enable programmable completion features (you don't need to enable
