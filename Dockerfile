@@ -33,6 +33,11 @@ RUN \
         echo 'opcache.fast_shutdown=1'; \
         echo 'opcache.enable_cli=1'; \
     } > /usr/local/etc/php/conf.d/opcache-recommended.ini && \
+    # increase upload filesize :)
+    { \
+        echo 'upload_max_filesize=500M'; \
+        echo 'post_max_size=500M'; \
+    } > /usr/local/etc/php/conf.d/upload-size.ini && \
     # WP-CLI
     curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x /usr/local/bin/wp && \
