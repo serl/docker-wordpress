@@ -38,6 +38,13 @@ RUN \
         echo 'upload_max_filesize=500M'; \
         echo 'post_max_size=500M'; \
     } > /usr/local/etc/php/conf.d/upload-size.ini && \
+    # MySQL credentials, so that any CLI will work freely
+    { \
+        echo '[client]'; \
+        echo 'user=root'; \
+        echo 'password=easy'; \
+    } > /etc/my.cnf && \
+    chmod go-rw /etc/my.cnf && \
     # WP-CLI
     curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x /usr/local/bin/wp && \

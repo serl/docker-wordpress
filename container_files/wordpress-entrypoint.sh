@@ -70,14 +70,13 @@ if ! [ -f index.php ]; then
 fi
 
 /etc/init.d/mysql start
-mysql --user=root --password=easy -e "CREATE DATABASE wordpress;"
-[ -e /output/dump.sql ] && (mysql --user=root --password=easy wordpress < /output/dump.sql)
-
 docker-php-entrypoint "$@" > /var/log/apache-php.log &
-sleep 5
+mysql -e "CREATE DATABASE wordpress;"
+[ -e /output/dump.sql ] && (mysql wordpress < /output/dump.sql)
 
+sleep 5
 bash
 
-mysqldump --user=root --password=easy wordpress > /output/dump.sql &&
-echo "Database dumped!"
+mysqldump wordpress > /output/dump.sql &&
+echo "Database dumped." || echo "ERROR: unable to dump database!"
 shutdown
