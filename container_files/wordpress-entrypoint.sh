@@ -57,8 +57,9 @@ if ! [ -f index.php ]; then
 		define('DB_HOST', '127.0.0.1');
 		define('DB_CHARSET', 'utf8');
 		define('DB_COLLATE', '');
-		$table_prefix = 'wp_';
 	EOF
+	table_prefix="$(cat /dev/urandom | tr -dc 'a-z' | fold -w 4 | head -n 1)_"
+	echo '$table_prefix='"'$table_prefix';" >> wp-config.php
 	curl https://api.wordpress.org/secret-key/1.1/salt/ >> wp-config.php
 	cat >> wp-config.php <<-'EOF'
 		define('WP_DEBUG', false);
