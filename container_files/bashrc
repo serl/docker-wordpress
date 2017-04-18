@@ -1,5 +1,7 @@
 umask 000
 
+export LANG=C.UTF-8
+
 alias wp="sudo -u www-data -- wp"
 
 # enable programmable completion features (you don't need to enable
